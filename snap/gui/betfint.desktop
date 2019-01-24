@@ -1,0 +1,15 @@
+# http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-1.0.html
+
+[Desktop Entry]
+Type=Application
+Version=1.4.35
+Encoding=UTF-8
+Name=Betfint
+Icon=${SNAP}/betfint128.png
+MimeType=x-scheme-handler/betfint;
+Exec=betfint %u
+Terminal=false
+Categories=Office;Finance;
+Comment=Betfint P2P Cryptocurrency
+Keywords=internet;betfint;
+Name[de_AT]=betfint.desktop

@@ -1,0 +1,26 @@
+[Unit]
+Description=BETFINT's distributed currency daemon
+After=network.target
+
+[Service]
+User=betfint
+Group=betfint
+
+Type=forking
+PIDFile=/var/lib/betfintd/betfintd.pid
+
+ExecStart=/usr/bin/betfintd -daemon -pid=/var/lib/betfintd/betfintd.pid \
+          -conf=/etc/betfint/betfint.conf -datadir=/var/lib/betfintd
+
+ExecStop=-/usr/bin/betfint-cli -conf=/etc/betfint/betfint.conf \
+         -datadir=/var/lib/betfintd stop
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

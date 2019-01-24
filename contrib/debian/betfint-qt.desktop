@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=BETFINT
+Comment=BETFINT P2P Cryptocurrency
+Comment[fr]=BETFINT, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=BETFINT, eşten eşe kriptografik sanal para birimi
+Exec=betfint-qt %u
+Terminal=false
+Type=Application
+Icon=betfint128
+MimeType=x-scheme-handler/betfint;
+Categories=Office;Finance;
