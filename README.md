@@ -8,7 +8,7 @@ Betfint is a cutting edge cryptocurrency, with many features not available in mo
 - Fast transactions featuring guaranteed zero confirmation transactions, we call it _SwiftX_.
 - Decentralized blockchain voting providing for consensus based advancement of the current Masternode
   technology used to secure the network and provide the above features, each Masternode is secured
-  with a collateral of 25K BETF.
+  with a collateral of 10K BETF.
 
 More information at [betfint.com](http://www.betfint.com/) Visit our ANN thread at [BitcoinTalk](https://bitcointalk.org/index.php?topic=1911583.0)
 
