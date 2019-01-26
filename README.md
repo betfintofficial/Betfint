@@ -20,7 +20,7 @@ More information at [betfint.com](http://www.betfint.com/) Visit our ANN thread 
 <tr><td>Max Coin Supply (PoW Phase)</td><td>4,750,000 BETF</td></tr>
 <tr><td>Max Coin Supply (PoS Phase)</td><td>Infinite</td></tr>
 <tr><td>Premine in block 1</td><td>3,750,000 BETF*</td></tr>
-<tr><td>Premine in blocks 2-101</td><td>10,000 BETF*</td></tr>
+<tr><td>Premine in blocks 2-101</td><td>1,000,000 BETF*</td></tr>
 <tr><td>Full Premine</td><td>4,750,000 BETF*</td></tr>
 </table>
 
@@ -42,5 +42,5 @@ More information at [betfint.com](http://www.betfint.com/) Visit our ANN thread 
 <table>
 <th>Phase</th><th>Block Height</th><th>Reward</th><th>Masternodes</th>
 <tr><td>Phase 1</td><td>501-30000</td><td>0 BETF</td><td>100% (0 BETF)</td></tr>
-<tr><td>Phase 2</td><td>10001-ToBeSet</td><td>3.8 BETF</td><td>100% (2 BETF)</td></tr>
+<tr><td>Phase 2</td><td>10001-ToBeSet</td><td>3 BETF</td><td>100% (2 BETF)</td></tr>
 </table>
