@@ -14,14 +14,14 @@ More information at [betfint.com](http://www.betfint.com/) Visit our ANN thread 
 
 ### Coin Specs
 <table>
-<tr><td>Algo</td><td>Quark</td></tr>
+<tr><td>Algo</td><td>-</td></tr>
 <tr><td>Block Time</td><td>60 Seconds</td></tr>
 <tr><td>Difficulty Retargeting</td><td>Every Block</td></tr>
-<tr><td>Max Coin Supply (PoW Phase)</td><td>198,360,471 BETF</td></tr>
+<tr><td>Max Coin Supply (PoW Phase)</td><td>4,750,000 BETF</td></tr>
 <tr><td>Max Coin Supply (PoS Phase)</td><td>Infinite</td></tr>
-<tr><td>Premine in block 1</td><td>173,360,471 BETF*</td></tr>
-<tr><td>Premine in blocks 2-101</td><td>25,000,000 BETF*</td></tr>
-<tr><td>Full Premine</td><td>198,360,471 BETF*</td></tr>
+<tr><td>Premine in block 1</td><td>3,750,000 BETF*</td></tr>
+<tr><td>Premine in blocks 2-101</td><td>10,000 BETF*</td></tr>
+<tr><td>Full Premine</td><td>4,750,000 BETF*</td></tr>
 </table>
 
 ### Reward Distribution
@@ -29,18 +29,18 @@ More information at [betfint.com](http://www.betfint.com/) Visit our ANN thread 
 <table>
 <th colspan=4>PoW Phase</th>
 <tr><th>Block Height</th><th>Reward Amount</th><th>Notes</th><th>Duration (Days)</th></tr>
-<tr><td>1</td><td>173,360,471 BETF</td><td>Initial Premine</td><td>0 Days</td></tr>
-<tr><td>2-101</td><td>250,000 BETF</td><td rowspan=2>Closed Mining</td><td rowspan=2> Approx 2 Days</td></tr>
-<tr><td>102-1001</td><td>0 BETF</td></tr>
+<tr><td>1</td><td>3,750,000 BETF</td><td>Initial Premine</td><td>0 Days</td></tr>
+<tr><td>2-101</td><td>10,000 BETF</td><td rowspan=2>Closed Mining</td><td rowspan=2> Approx 1 Day</td></tr>
+<tr><td>102-500</td><td>0 BETF</td></tr>
 <tr><th colspan=4>PoS Phase</th></tr>
 <tr><th>Block Height</th><th colspan=3>Reward Amount</th></tr>
-<tr><td>1002-Infinite</td><td colspan=3>Variable based on <a href="https://pivx.org/knowledge-base/see-saw-rewards-mechanism/">SeeSaw Reward Mechanism</a></td></tr>
+<tr><td>501-Infinite</td><td colspan=3>Variable based on <a href="https://pivx.org/knowledge-base/see-saw-rewards-mechanism/">SeeSaw Reward Mechanism</a></td></tr>
 </table>
 
 ### PoS Rewards Breakdown
 
 <table>
-<th>Phase</th><th>Block Height</th><th>Reward</th><th>Masternodes & Stakers</th><th>Budget</th>
-<tr><td>Phase 1</td><td>1002-10000</td><td>0 BETF</td><td>75% (0 BETF) & 25% (0 BETF) respectively</td><td>0% (0 BETF)</td></tr>
-<tr><td>Phase 2</td><td>10001-ToBeSet</td><td>3.8 BETF</td><td>75% (2.85 BETF) & 25% (0.95 BETF) respectively</td><td>0% (0 BETF)</td></tr>
+<th>Phase</th><th>Block Height</th><th>Reward</th><th>Masternodes</th>
+<tr><td>Phase 1</td><td>501-30000</td><td>0 BETF</td><td>100% (0 BETF)</td></tr>
+<tr><td>Phase 2</td><td>10001-ToBeSet</td><td>3.8 BETF</td><td>100% (2 BETF)</td></tr>
 </table>
