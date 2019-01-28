@@ -1821,15 +1821,22 @@ int64_t GetBlockValue(int nHeight)
             Full premine size is 198360471. First 100 blocks mine 250000 betfint per block - 198360471 - (100 * 250000) = 173360471
             */
             // 87.4 % of premine
-            return 173360471 * COIN;
+        	//return 173360471 * COIN;
+        	return 3750000 * COIN;
         } else if (nHeight < 200 && nHeight > 1) {
-            return 250000 * COIN;
+            //return 250000 * COIN;
+            return 10000 * COIN;
+
         } else if (nHeight >= 200 && nHeight <= Params().LAST_POW_BLOCK()) {
             return 100000 * COIN;
         } else if (nHeight > Params().LAST_POW_BLOCK() && nHeight <= Params().Zerocoin_Block_V2_Start()) { 
-            return 3.8 / 90 * 100 * COIN;
+            //return 3.8 / 90 * 100 * COIN;
+            return 2 / 90 * 100 * COIN;
+
         } else if (nHeight > Params().Zerocoin_Block_V2_Start()) {
-            return 3.8 * COIN;
+            //return 3.8 * COIN;
+            return 2 * COIN;
+
         } else {
             return 0 * COIN;
         }
@@ -1847,19 +1854,19 @@ int64_t GetBlockValue(int nHeight)
         Full premine size is 198360471. First 100 blocks mine 250000 betfint per block - 198360471 - (100 * 250000) = 173360471
         */
         // 87.4 % of premine
-        nSubsidy = 173360471 * COIN;
+        nSubsidy = 3750000 * COIN;
     } else if (nHeight > 1 && nHeight <= 101 && nHeight <= Params().LAST_POW_BLOCK()) { // check for last PoW block is not required, it does not harm to leave it *** TODO ***
         // PoW Phase 1 does produce 12.6 % of full premine (25000000 BETF)
-        nSubsidy = 250000 * COIN;
+        nSubsidy = 10000  * COIN;
     } else if (nHeight > 1 && nHeight > 101 && nHeight <= Params().LAST_POW_BLOCK()) {
         // PoW Phase does not produce any coins
         nSubsidy = 0 * COIN;
-    } else if (nHeight > Params().LAST_POW_BLOCK() && nHeight <= 10000) {
+    } else if (nHeight > Params().LAST_POW_BLOCK() && nHeight <= 30000) {
         // PoS - Phase 1 lasts until block 1110)
         nSubsidy = 0 * COIN;
-    } else if (nHeight > Params().LAST_POW_BLOCK() && nHeight > 10000) {
+    } else if (nHeight > Params().LAST_POW_BLOCK() && nHeight > 30000) {
         // PoS - Phase 2 lasts until - undefined)
-        nSubsidy = 3.8 * COIN;
+        nSubsidy = 2 * COIN;
     } else {
         nSubsidy = 0 * COIN;
     }
@@ -1925,7 +1932,7 @@ CAmount GetSeeSaw(const CAmount& blockValue, int nMasternodeCount, int nHeight)
     }
 
     int64_t nMoneySupply = chainActive.Tip()->nMoneySupply;
-    int64_t mNodeCoins = nMasternodeCount * 25000 * COIN;
+    int64_t mNodeCoins = nMasternodeCount * 1000 * COIN;
 
     // Use this log to compare the masternode count for different clients
     //LogPrintf("Adjusting seesaw at height %d with %d masternodes (without drift: %d) at %ld\n", nHeight, nMasternodeCount, nMasternodeCount - Params().MasternodeCountDrift(), GetTime());
@@ -1962,7 +1969,7 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
         return GetSeeSaw(blockValue, nMasternodeCount, nHeight);
     } else {
         //When zBETF is staked, masternode only gets 2 BETF
-        ret = blockValue * 0.75;
+        ret = blockValue * 2;
         if (isZBETFStake)
             ret = blockValue - (1 * COIN); // 3.8 zBETF - 1 zBETF = 2.8 zBETF for MNs instead of 2.85 zBETF for MNs
     }
