@@ -1,5 +1,5 @@
-IDI_ICON1 ICON DISCARDABLE "icons/betfint.ico"
-IDI_ICON2 ICON DISCARDABLE "icons/betfint_testnet.ico"
+IDI_ICON1 ICON DISCARDABLE "icons/wagerr.ico"
+IDI_ICON2 ICON DISCARDABLE "icons/wagerr_testnet.ico"
 
 #include <windows.h>             // needed for VERSIONINFO
 #include "../../clientversion.h" // holds the needed client version information
@@ -19,14 +19,14 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "BETFINT"
-            VALUE "FileDescription",    "Betfint Core (OSS GUI client for BETFINT)"
+            VALUE "CompanyName",        "WAGERR"
+            VALUE "FileDescription",    "Wagerr Core (OSS GUI client for WAGERR)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
-            VALUE "InternalName",       "betfint-qt"
+            VALUE "InternalName",       "wagerr-qt"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
-            VALUE "OriginalFilename",   "betfint-qt.exe"
-            VALUE "ProductName",        "Betfint Core"
+            VALUE "OriginalFilename",   "wagerr-qt.exe"
+            VALUE "ProductName",        "Wagerr Core"
             VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
         END
     END
