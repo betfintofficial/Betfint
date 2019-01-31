@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_CASE(zerocoin_spend_test)
 
     bool fFirstRun;
     cWallet.LoadWallet(fFirstRun);
-    cWallet.zwgrTracker = unique_ptr<CzBETFTracker>(new CzBETFTracker(cWallet.strWalletFile));
+    cWallet.zbetfTracker = unique_ptr<CzBETFTracker>(new CzBETFTracker(cWallet.strWalletFile));
     CMutableTransaction tx;
     CWalletTx* wtx = new CWalletTx(&cWallet, tx);
     bool fMintChange=true;

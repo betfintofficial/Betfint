@@ -11,7 +11,7 @@
 #include "init.h"
 #include "spork.h"
 #include "accumulatorcheckpoints.h"
-#include "zwgrchain.h"
+#include "zbetfchain.h"
 
 using namespace libzerocoin;
 

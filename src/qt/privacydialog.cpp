@@ -15,7 +15,7 @@
 #include "sendcoinsentry.h"
 #include "walletmodel.h"
 #include "coincontrol.h"
-#include "zwgrcontroldialog.h"
+#include "zbetfcontroldialog.h"
 #include "spork.h"
 #include "askpassphrasedialog.h"
 
@@ -293,19 +293,19 @@ void PrivacyDialog::on_pushButtonSpendzBETF_clicked()
     sendzBETF();
 }
 
-void PrivacyDialog::on_pushButtonZWgrControl_clicked()
+void PrivacyDialog::on_pushButtonZBetfControl_clicked()
 {
     if (!walletModel || !walletModel->getOptionsModel())
         return;
 
-    ZWgrControlDialog* zWgrControl = new ZWgrControlDialog(this);
-    zWgrControl->setModel(walletModel);
-    zWgrControl->exec();
+    ZBetfControlDialog* zBetfControl = new ZBetfControlDialog(this);
+    zBetfControl->setModel(walletModel);
+    zBetfControl->exec();
 }
 
-void PrivacyDialog::setZWgrControlLabels(int64_t nAmount, int nQuantity)
+void PrivacyDialog::setZBetfControlLabels(int64_t nAmount, int nQuantity)
 {
-    ui->labelzWgrSelected_int->setText(QString::number(nAmount));
+    ui->labelzBetfSelected_int->setText(QString::number(nAmount));
     ui->labelQuantitySelected_int->setText(QString::number(nQuantity));
 }
 
@@ -414,8 +414,8 @@ void PrivacyDialog::sendzBETF()
     // use mints from zBETF selector if applicable
     vector<CMintMeta> vMintsToFetch;
     vector<CZerocoinMint> vMintsSelected;
-    if (!ZWgrControlDialog::setSelectedMints.empty()) {
-        vMintsToFetch = ZWgrControlDialog::GetSelectedMints();
+    if (!ZBetfControlDialog::setSelectedMints.empty()) {
+        vMintsToFetch = ZBetfControlDialog::GetSelectedMints();
 
         for (auto& meta : vMintsToFetch) {
             if (meta.nVersion < libzerocoin::PrivateCoin::PUBKEY_VERSION) {
@@ -486,9 +486,9 @@ void PrivacyDialog::sendzBETF()
             walletModel->updateAddressBookLabels(address.Get(), "(no label)", "send");
     }
 
-    // Clear zwgr selector in case it was used
-    ZWgrControlDialog::setSelectedMints.clear();
-    ui->labelzWgrSelected_int->setText(QString("0"));
+    // Clear zbetf selector in case it was used
+    ZBetfControlDialog::setSelectedMints.clear();
+    ui->labelzBetfSelected_int->setText(QString("0"));
     ui->labelQuantitySelected_int->setText(QString("0"));
 
     // Some statistics for entertainment
@@ -506,7 +506,7 @@ void PrivacyDialog::sendzBETF()
 
     CAmount nValueOut = 0;
     for (const CTxOut& txout: wtxNew.vout) {
-        strStats += tr("value out: ") + FormatMoney(txout.nValue).c_str() + " Wgr, ";
+        strStats += tr("value out: ") + FormatMoney(txout.nValue).c_str() + " Betf, ";
         nValueOut += txout.nValue;
 
         strStats += tr("address: ");
@@ -619,7 +619,7 @@ void PrivacyDialog::setBalance(const CAmount& balance, const CAmount& unconfirme
         mapImmature.insert(make_pair(denom, 0));
     }
 
-    std::vector<CMintMeta> vMints = pwalletMain->zwgrTracker->GetMints(false);
+    std::vector<CMintMeta> vMints = pwalletMain->zbetfTracker->GetMints(false);
     map<libzerocoin::CoinDenomination, int> mapMaturityHeights = GetMintMaturityHeight();
     for (auto& meta : vMints){
         // All denominations

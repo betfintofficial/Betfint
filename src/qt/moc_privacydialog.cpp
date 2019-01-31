@@ -54,7 +54,7 @@ QT_MOC_LITERAL(20, 364, 30), // "on_pushButtonMintzBETF_clicked"
 QT_MOC_LITERAL(21, 395, 30), // "on_pushButtonMintReset_clicked"
 QT_MOC_LITERAL(22, 426, 31), // "on_pushButtonSpentReset_clicked"
 QT_MOC_LITERAL(23, 458, 31), // "on_pushButtonSpendzBETF_clicked"
-QT_MOC_LITERAL(24, 490, 32), // "on_pushButtonZWgrControl_clicked"
+QT_MOC_LITERAL(24, 490, 32), // "on_pushButtonZBetfControl_clicked"
 QT_MOC_LITERAL(25, 523, 22), // "on_pasteButton_clicked"
 QT_MOC_LITERAL(26, 546, 17), // "updateDisplayUnit"
 QT_MOC_LITERAL(27, 564, 20), // "updateAutomintStatus"
@@ -76,7 +76,7 @@ QT_MOC_LITERAL(28, 585, 19) // "updateSPORK16Status"
     "on_pushButtonMintReset_clicked\0"
     "on_pushButtonSpentReset_clicked\0"
     "on_pushButtonSpendzBETF_clicked\0"
-    "on_pushButtonZWgrControl_clicked\0"
+    "on_pushButtonZBetfControl_clicked\0"
     "on_pasteButton_clicked\0updateDisplayUnit\0"
     "updateAutomintStatus\0updateSPORK16Status"
 };
@@ -151,7 +151,7 @@ void PrivacyDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         case 8: _t->on_pushButtonMintReset_clicked(); break;
         case 9: _t->on_pushButtonSpentReset_clicked(); break;
         case 10: _t->on_pushButtonSpendzBETF_clicked(); break;
-        case 11: _t->on_pushButtonZWgrControl_clicked(); break;
+        case 11: _t->on_pushButtonZBetfControl_clicked(); break;
         case 12: _t->on_pasteButton_clicked(); break;
         case 13: _t->updateDisplayUnit(); break;
         case 14: _t->updateAutomintStatus(); break;

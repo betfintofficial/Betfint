@@ -294,7 +294,7 @@ RPCConsole::RPCConsole(QWidget* parent) : QDialog(parent, Qt::WindowSystemMenuHi
     ui->openSSLVersion->setText(SSLeay_version(SSLEAY_VERSION));
 #ifdef ENABLE_WALLET
     std::string strPathCustom = GetArg("-backuppath", "");
-    std::string strzBETFPathCustom = GetArg("-zwgrbackuppath", "");
+    std::string strzBETFPathCustom = GetArg("-zbetfbackuppath", "");
     int nCustomBackupThreshold = GetArg("-custombackupthreshold", DEFAULT_CUSTOMBACKUPTHRESHOLD);
 
     if(!strPathCustom.empty()) {
@@ -304,9 +304,9 @@ RPCConsole::RPCConsole(QWidget* parent) : QDialog(parent, Qt::WindowSystemMenuHi
     }
 
     if(!strzBETFPathCustom.empty()) {
-        ui->wallet_customzwgrbackuppath->setText(QString::fromStdString(strzBETFPathCustom));
-        ui->wallet_customzwgrbackuppath_label->setVisible(true);
-        ui->wallet_customzwgrbackuppath->setVisible(true);
+        ui->wallet_customzbetfbackuppath->setText(QString::fromStdString(strzBETFPathCustom));
+        ui->wallet_customzbetfbackuppath_label->setVisible(true);
+        ui->wallet_customzbetfbackuppath->setVisible(true);
     }
 
     if((!strPathCustom.empty() || !strzBETFPathCustom.empty()) && nCustomBackupThreshold > 0) {
@@ -641,7 +641,7 @@ void RPCConsole::clear()
                            tr("Type <b>help</b> for an overview of available commands.") + "<br><br>" +
                            tr("WARNING(S):") + "<br>" +
                            tr("Placing bets via RPC and the debug console can result in loss of funds and invalid bets. We recommend using the betting GUI only to place bets. All other bets are done at your own risk.") + "<br><br>" +
-                           tr("Please note the <b>dumpwallet</b>, <b>dumpprivkey</b>, and <b>getzwgrseed</b> RPC command outputs do not need to be shared with anyone other than yourself. Even if someone is reputable and claims to be helping you, these commands are not needed for debugging.")),
+                           tr("Please note the <b>dumpwallet</b>, <b>dumpprivkey</b>, and <b>getzbetfseed</b> RPC command outputs do not need to be shared with anyone other than yourself. Even if someone is reputable and claims to be helping you, these commands are not needed for debugging.")),
         true);
 }
 

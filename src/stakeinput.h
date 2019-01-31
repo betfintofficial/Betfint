@@ -30,8 +30,8 @@ public:
 
 // zBETFStake can take two forms
 // 1) the stake candidate, which is a zcmint that is attempted to be staked
-// 2) a staked zwgr, which is a zcspend that has successfully staked
-class CZWgrStake : public CStakeInput
+// 2) a staked zbetf, which is a zcspend that has successfully staked
+class CZBetfStake : public CStakeInput
 {
 private:
     uint32_t nChecksum;
@@ -40,7 +40,7 @@ private:
     uint256 hashSerial;
 
 public:
-    explicit CZWgrStake(libzerocoin::CoinDenomination denom, const uint256& hashSerial)
+    explicit CZBetfStake(libzerocoin::CoinDenomination denom, const uint256& hashSerial)
     {
         this->denom = denom;
         this->hashSerial = hashSerial;
@@ -48,7 +48,7 @@ public:
         fMint = true;
     }
 
-    explicit CZWgrStake(const libzerocoin::CoinSpend& spend);
+    explicit CZBetfStake(const libzerocoin::CoinSpend& spend);
 
     CBlockIndex* GetIndexFrom() override;
     bool GetTxFrom(CTransaction& tx) override;
@@ -64,13 +64,13 @@ public:
     uint32_t GetChecksum();
 };
 
-class CWgrStake : public CStakeInput
+class CBetfStake : public CStakeInput
 {
 private:
     CTransaction txFrom;
     unsigned int nPosition;
 public:
-    CWgrStake()
+    CBetfStake()
     {
         this->pindexFrom = nullptr;
     }

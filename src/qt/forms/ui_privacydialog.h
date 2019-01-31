@@ -80,9 +80,9 @@ public:
     QPlainTextEdit *TEMintStatus;
     QFrame *line;
     QHBoxLayout *horizontalLayout_24;
-    QPushButton *pushButtonZWgrControl;
-    QLabel *labelzWgrSelected;
-    QLabel *labelzWgrSelected_int;
+    QPushButton *pushButtonZBetfControl;
+    QLabel *labelzBetfSelected;
+    QLabel *labelzBetfSelected_int;
     QSpacerItem *horizontalSpacer_17;
     QLabel *labelQuantitySelected;
     QLabel *labelQuantitySelected_int;
@@ -518,20 +518,20 @@ public:
         horizontalLayout_24 = new QHBoxLayout();
         horizontalLayout_24->setObjectName(QStringLiteral("horizontalLayout_24"));
         horizontalLayout_24->setContentsMargins(0, -1, -1, 0);
-        pushButtonZWgrControl = new QPushButton(verticalFrameLeft);
-        pushButtonZWgrControl->setObjectName(QStringLiteral("pushButtonZWgrControl"));
+        pushButtonZBetfControl = new QPushButton(verticalFrameLeft);
+        pushButtonZBetfControl->setObjectName(QStringLiteral("pushButtonZBetfControl"));
 
-        horizontalLayout_24->addWidget(pushButtonZWgrControl);
+        horizontalLayout_24->addWidget(pushButtonZBetfControl);
 
-        labelzWgrSelected = new QLabel(verticalFrameLeft);
-        labelzWgrSelected->setObjectName(QStringLiteral("labelzWgrSelected"));
+        labelzBetfSelected = new QLabel(verticalFrameLeft);
+        labelzBetfSelected->setObjectName(QStringLiteral("labelzBetfSelected"));
 
-        horizontalLayout_24->addWidget(labelzWgrSelected);
+        horizontalLayout_24->addWidget(labelzBetfSelected);
 
-        labelzWgrSelected_int = new QLabel(verticalFrameLeft);
-        labelzWgrSelected_int->setObjectName(QStringLiteral("labelzWgrSelected_int"));
+        labelzBetfSelected_int = new QLabel(verticalFrameLeft);
+        labelzBetfSelected_int->setObjectName(QStringLiteral("labelzBetfSelected_int"));
 
-        horizontalLayout_24->addWidget(labelzWgrSelected_int);
+        horizontalLayout_24->addWidget(labelzBetfSelected_int);
 
         horizontalSpacer_17 = new QSpacerItem(40, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
@@ -1541,7 +1541,7 @@ public:
         labelzBETFSyncStatus->setToolTip(QApplication::translate("PrivacyDialog", "The displayed information may be out of date. Your wallet automatically synchronizes with the Betfint network after a connection is established, but this process has not completed yet.", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
 #ifndef QT_NO_TOOLTIP
-        pushButtonMintzBETF->setToolTip(QApplication::translate("PrivacyDialog", "Enter an amount of Wgr to convert to zBETF", Q_NULLPTR));
+        pushButtonMintzBETF->setToolTip(QApplication::translate("PrivacyDialog", "Enter an amount of Betf to convert to zBETF", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
         pushButtonMintzBETF->setText(QApplication::translate("PrivacyDialog", "Mint Zerocoin", Q_NULLPTR));
         labelMintAmountValue->setText(QApplication::translate("PrivacyDialog", "0", Q_NULLPTR));
@@ -1551,7 +1551,7 @@ public:
 #endif // QT_NO_TOOLTIP
         labelzBETFAmountText->setText(QApplication::translate("PrivacyDialog", "Available for Minting:", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        labelzBETFAmountValue->setToolTip(QApplication::translate("PrivacyDialog", "Enter an amount of Wgr to convert to zBETF", Q_NULLPTR));
+        labelzBETFAmountValue->setToolTip(QApplication::translate("PrivacyDialog", "Enter an amount of Betf to convert to zBETF", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
         labelzBETFAmountValue->setText(QApplication::translate("PrivacyDialog", "0.000\342\200\211000\342\200\21100 BETF", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
@@ -1568,9 +1568,9 @@ public:
 #ifndef QT_NO_TOOLTIP
         TEMintStatus->setToolTip(QApplication::translate("PrivacyDialog", "Status and/or Mesages from the last Mint Action.", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
-        pushButtonZWgrControl->setText(QApplication::translate("PrivacyDialog", "zBETF Control", Q_NULLPTR));
-        labelzWgrSelected->setText(QApplication::translate("PrivacyDialog", "zBETF Selected:", Q_NULLPTR));
-        labelzWgrSelected_int->setText(QApplication::translate("PrivacyDialog", "0", Q_NULLPTR));
+        pushButtonZBetfControl->setText(QApplication::translate("PrivacyDialog", "zBETF Control", Q_NULLPTR));
+        labelzBetfSelected->setText(QApplication::translate("PrivacyDialog", "zBETF Selected:", Q_NULLPTR));
+        labelzBetfSelected_int->setText(QApplication::translate("PrivacyDialog", "0", Q_NULLPTR));
         labelQuantitySelected->setText(QApplication::translate("PrivacyDialog", "Quantity Selected:", Q_NULLPTR));
         labelQuantitySelected_int->setText(QApplication::translate("PrivacyDialog", "0", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP

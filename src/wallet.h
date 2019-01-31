@@ -24,8 +24,8 @@
 #include "validationinterface.h"
 #include "wallet_ismine.h"
 #include "walletdb.h"
-#include "zwgrwallet.h"
-#include "zwgrtracker.h"
+#include "zbetfwallet.h"
+#include "zbetftracker.h"
 
 #include <algorithm>
 #include <map>
@@ -214,7 +214,7 @@ public:
     std::string ResetMintZerocoin();
     std::string ResetSpentZerocoin();
     void ReconsiderZerocoins(std::list<CZerocoinMint>& listMintsRestored, std::list<CDeterministicMint>& listDMintsRestored);
-    void ZWgrBackupWallet();
+    void ZBetfBackupWallet();
     bool GetZerocoinKey(const CBigNum& bnSerial, CKey& key);
     bool CreateZBETFOutPut(libzerocoin::CoinDenomination denomination, CTxOut& outMint, CDeterministicMint& dMint);
     bool GetMint(const uint256& hashSerial, CZerocoinMint& mint);
@@ -222,7 +222,7 @@ public:
     bool DatabaseMint(CDeterministicMint& dMint);
     bool SetMintUnspent(const CBigNum& bnSerial);
     bool UpdateMint(const CBigNum& bnValue, const int& nHeight, const uint256& txid, const libzerocoin::CoinDenomination& denom);
-    string GetUniqueWalletBackupName(bool fzwgrAuto) const;
+    string GetUniqueWalletBackupName(bool fzbetfAuto) const;
 
 
     /** Zerocin entry changed.
@@ -244,7 +244,7 @@ public:
     bool fWalletUnlockAnonymizeOnly;
     std::string strWalletFile;
     bool fBackupMints;
-    std::unique_ptr<CzBETFTracker> zwgrTracker;
+    std::unique_ptr<CzBETFTracker> zbetfTracker;
 
     std::set<int64_t> setKeyPool;
     std::map<CKeyID, CKeyMetadata> mapKeyMetadata;
@@ -332,7 +332,7 @@ public:
     void setZWallet(CzBETFWallet* zwallet)
     {
         zwalletMain = zwallet;
-        zwgrTracker = std::unique_ptr<CzBETFTracker>(new CzBETFTracker(strWalletFile));
+        zbetfTracker = std::unique_ptr<CzBETFTracker>(new CzBETFTracker(strWalletFile));
     }
 
     CzBETFWallet* getZWallet() { return zwalletMain; }
@@ -342,7 +342,7 @@ public:
         return fEnableZeromint;
     }
 
-    void setZWgrAutoBackups(bool fEnabled)
+    void setZBetfAutoBackups(bool fEnabled)
     {
         fBackupMints = fEnabled;
     }

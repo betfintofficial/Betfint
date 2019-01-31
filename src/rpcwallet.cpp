@@ -18,7 +18,7 @@
 #include "utilmoneystr.h"
 #include "wallet.h"
 #include "walletdb.h"
-#include "zwgrchain.h"
+#include "zbetfchain.h"
 
 #include <stdint.h>
 
@@ -2970,7 +2970,7 @@ UniValue listmintedzerocoins(const UniValue& params, bool fHelp)
     EnsureWalletIsUnlocked(true);
 
     CWalletDB walletdb(pwalletMain->strWalletFile);
-    set<CMintMeta> setMints = pwalletMain->zwgrTracker->ListMints(true, false, true);
+    set<CMintMeta> setMints = pwalletMain->zbetfTracker->ListMints(true, false, true);
 
     UniValue jsonList(UniValue::VARR);
     for (const CMintMeta& meta : setMints)
@@ -3005,7 +3005,7 @@ UniValue listzerocoinamounts(const UniValue& params, bool fHelp)
     EnsureWalletIsUnlocked(true);
 
     CWalletDB walletdb(pwalletMain->strWalletFile);
-    set<CMintMeta> setMints = pwalletMain->zwgrTracker->ListMints(true, true, true);
+    set<CMintMeta> setMints = pwalletMain->zbetfTracker->ListMints(true, true, true);
 
     std::map<libzerocoin::CoinDenomination, CAmount> spread;
     for (const auto& denom : libzerocoin::zerocoinDenomList)
@@ -3065,7 +3065,7 @@ UniValue mintzerocoin(const UniValue& params, bool fHelp)
             HelpRequiringPassphrase() + "\n"
 
             "\nArguments:\n"
-            "1. amount      (numeric, required) Enter an amount of Wgr to convert to zBETF\n"
+            "1. amount      (numeric, required) Enter an amount of Betf to convert to zBETF\n"
             "2. utxos       (string, optional) A json array of objects.\n"
             "                   Each object needs the txid (string) and vout (numeric)\n"
             "  [\n"
@@ -3370,7 +3370,7 @@ UniValue spendzerocoinfrom(const UniValue& params, bool fHelp)
     for (unsigned int inx = 0; inx < inputsPubcoinHashes.size(); inx++){
         const UniValue& inputPubcoinHash = inputsPubcoinHashes[inx];
         const uint256 pubcoinHash = uint256(inputPubcoinHash.get_str());
-        CMintMeta mintMeta = pwalletMain->zwgrTracker->GetMetaFromPubcoin(pubcoinHash);
+        CMintMeta mintMeta = pwalletMain->zbetfTracker->GetMetaFromPubcoin(pubcoinHash);
 
         if (mintMeta.nVersion < libzerocoin::PrivateCoin::PUBKEY_VERSION) {
             //version 1 coins have to use full security level to successfully spend.
@@ -3464,8 +3464,8 @@ UniValue resetmintzerocoin(const UniValue& params, bool fHelp)
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
     CWalletDB walletdb(pwalletMain->strWalletFile);
-    CzBETFTracker* zwgrTracker = pwalletMain->zwgrTracker.get();
-    set<CMintMeta> setMints = zwgrTracker->ListMints(false, false, true);
+    CzBETFTracker* zbetfTracker = pwalletMain->zbetfTracker.get();
+    set<CMintMeta> setMints = zbetfTracker->ListMints(false, false, true);
     vector<CMintMeta> vMintsToFind(setMints.begin(), setMints.end());
     vector<CMintMeta> vMintsMissing;
     vector<CMintMeta> vMintsToUpdate;
@@ -3476,14 +3476,14 @@ UniValue resetmintzerocoin(const UniValue& params, bool fHelp)
     // update the meta data of mints that were marked for updating
     UniValue arrUpdated(UniValue::VARR);
     for (CMintMeta meta : vMintsToUpdate) {
-        zwgrTracker->UpdateState(meta);
+        zbetfTracker->UpdateState(meta);
         arrUpdated.push_back(meta.hashPubcoin.GetHex());
     }
 
     // delete any mints that were unable to be located on the blockchain
     UniValue arrDeleted(UniValue::VARR);
     for (CMintMeta mint : vMintsMissing) {
-        zwgrTracker->Archive(mint);
+        zbetfTracker->Archive(mint);
         arrDeleted.push_back(mint.hashPubcoin.GetHex());
     }
 
@@ -3517,8 +3517,8 @@ UniValue resetspentzerocoin(const UniValue& params, bool fHelp)
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
     CWalletDB walletdb(pwalletMain->strWalletFile);
-    CzBETFTracker* zwgrTracker = pwalletMain->zwgrTracker.get();
-    set<CMintMeta> setMints = zwgrTracker->ListMints(false, false, false);
+    CzBETFTracker* zbetfTracker = pwalletMain->zbetfTracker.get();
+    set<CMintMeta> setMints = zbetfTracker->ListMints(false, false, false);
     list<CZerocoinSpend> listSpends = walletdb.ListSpentCoins();
     list<CZerocoinSpend> listUnconfirmedSpends;
 
@@ -3540,7 +3540,7 @@ UniValue resetspentzerocoin(const UniValue& params, bool fHelp)
     for (CZerocoinSpend spend : listUnconfirmedSpends) {
         for (auto& meta : setMints) {
             if (meta.hashSerial == GetSerialHash(spend.GetSerial())) {
-                zwgrTracker->SetPubcoinNotUsed(meta.hashPubcoin);
+                zbetfTracker->SetPubcoinNotUsed(meta.hashPubcoin);
                 walletdb.EraseZerocoinSpendSerialEntry(spend.GetSerial());
                 RemoveSerialFromDB(spend.GetSerial());
                 UniValue obj(UniValue::VOBJ);
@@ -3654,8 +3654,8 @@ UniValue exportzerocoins(const UniValue& params, bool fHelp)
     if (params.size() == 2)
         denomination = libzerocoin::IntToZerocoinDenomination(params[1].get_int());
 
-    CzBETFTracker* zwgrTracker = pwalletMain->zwgrTracker.get();
-    set<CMintMeta> setMints = zwgrTracker->ListMints(!fIncludeSpent, false, false);
+    CzBETFTracker* zbetfTracker = pwalletMain->zbetfTracker.get();
+    set<CMintMeta> setMints = zbetfTracker->ListMints(!fIncludeSpent, false, false);
 
     UniValue jsonList(UniValue::VARR);
     for (const CMintMeta& meta : setMints) {
@@ -3765,7 +3765,7 @@ UniValue importzerocoins(const UniValue& params, bool fHelp)
         CZerocoinMint mint(denom, bnValue, bnRandom, bnSerial, fUsed, nVersion, &privkey);
         mint.SetTxHash(txid);
         mint.SetHeight(nHeight);
-        pwalletMain->zwgrTracker->Add(mint, true);
+        pwalletMain->zbetfTracker->Add(mint, true);
         count++;
         nValue += libzerocoin::ZerocoinDenominationToAmount(denom);
     }
@@ -3827,23 +3827,23 @@ UniValue reconsiderzerocoins(const UniValue& params, bool fHelp)
     return arrRet;
 }
 
-UniValue setzwgrseed(const UniValue& params, bool fHelp)
+UniValue setzbetfseed(const UniValue& params, bool fHelp)
 {
     if(fHelp || params.size() != 1)
         throw runtime_error(
-            "setzwgrseed \"seed\"\n"
-            "\nSet the wallet's deterministic zwgr seed to a specific value.\n" +
+            "setzbetfseed \"seed\"\n"
+            "\nSet the wallet's deterministic zbetf seed to a specific value.\n" +
             HelpRequiringPassphrase() + "\n"
 
             "\nArguments:\n"
-            "1. \"seed\"        (string, required) The deterministic zwgr seed.\n"
+            "1. \"seed\"        (string, required) The deterministic zbetf seed.\n"
 
             "\nResult\n"
             "\"success\" : b,  (boolean) Whether the seed was successfully set.\n"
 
             "\nExamples\n" +
-            HelpExampleCli("setzwgrseed", "63f793e7895dd30d99187b35fbfb314a5f91af0add9e0a4e5877036d1e392dd5") +
-            HelpExampleRpc("setzwgrseed", "63f793e7895dd30d99187b35fbfb314a5f91af0add9e0a4e5877036d1e392dd5"));
+            HelpExampleCli("setzbetfseed", "63f793e7895dd30d99187b35fbfb314a5f91af0add9e0a4e5877036d1e392dd5") +
+            HelpExampleRpc("setzbetfseed", "63f793e7895dd30d99187b35fbfb314a5f91af0add9e0a4e5877036d1e392dd5"));
 
     EnsureWalletIsUnlocked();
 
@@ -3861,11 +3861,11 @@ UniValue setzwgrseed(const UniValue& params, bool fHelp)
     return ret;
 }
 
-UniValue getzwgrseed(const UniValue& params, bool fHelp)
+UniValue getzbetfseed(const UniValue& params, bool fHelp)
 {
     if(fHelp || !params.empty())
         throw runtime_error(
-            "getzwgrseed\n"
+            "getzbetfseed\n"
             "\nCheck archived zBETF list to see if any mints were added to the blockchain.\n" +
             HelpRequiringPassphrase() + "\n"
 
@@ -3873,7 +3873,7 @@ UniValue getzwgrseed(const UniValue& params, bool fHelp)
             "\"seed\" : s,  (string) The deterministic zBETF seed.\n"
 
             "\nExamples\n" +
-            HelpExampleCli("getzwgrseed", "") + HelpExampleRpc("getzwgrseed", ""));
+            HelpExampleCli("getzbetfseed", "") + HelpExampleRpc("getzbetfseed", ""));
 
     EnsureWalletIsUnlocked();
 
@@ -3935,10 +3935,10 @@ UniValue generatemintlist(const UniValue& params, bool fHelp)
     return arrRet;
 }
 
-UniValue dzwgrstate(const UniValue& params, bool fHelp) {
+UniValue dzbetfstate(const UniValue& params, bool fHelp) {
     if (fHelp || params.size() != 0)
         throw runtime_error(
-                "dzwgrstate\n"
+                "dzbetfstate\n"
                         "\nThe current state of the mintpool of the deterministic zBETF wallet.\n" +
                 HelpRequiringPassphrase() + "\n"
 
@@ -3949,7 +3949,7 @@ UniValue dzwgrstate(const UniValue& params, bool fHelp) {
     UniValue obj(UniValue::VOBJ);
     int nCount, nCountLastUsed;
     zwallet->GetState(nCount, nCountLastUsed);
-    obj.push_back(Pair("dzwgr_count", nCount));
+    obj.push_back(Pair("dzbetf_count", nCount));
     obj.push_back(Pair("mintpool_count", nCountLastUsed));
 
     return obj;
@@ -3986,11 +3986,11 @@ void static SearchThread(CzBETFWallet* zwallet, int nCountStart, int nCountEnd)
     }
 }
 
-UniValue searchdzwgr(const UniValue& params, bool fHelp)
+UniValue searchdzbetf(const UniValue& params, bool fHelp)
 {
     if(fHelp || params.size() != 3)
         throw runtime_error(
-            "searchdzwgr\n"
+            "searchdzbetf\n"
             "\nMake an extended search for deterministically generated zBETF that have not yet been recognized by the wallet.\n" +
             HelpRequiringPassphrase() + "\n"
 
@@ -4000,7 +4000,7 @@ UniValue searchdzwgr(const UniValue& params, bool fHelp)
             "3. \"threads\"     (numeric) How many threads should this operation consume.\n"
 
             "\nExamples\n" +
-            HelpExampleCli("searchdzwgr", "1, 100, 2") + HelpExampleRpc("searchdzwgr", "1, 100, 2"));
+            HelpExampleCli("searchdzbetf", "1, 100, 2") + HelpExampleRpc("searchdzbetf", "1, 100, 2"));
 
     EnsureWalletIsUnlocked();
 
@@ -4016,7 +4016,7 @@ UniValue searchdzwgr(const UniValue& params, bool fHelp)
 
     CzBETFWallet* zwallet = pwalletMain->zwalletMain;
 
-    boost::thread_group* dzwgrThreads = new boost::thread_group();
+    boost::thread_group* dzbetfThreads = new boost::thread_group();
     int nRangePerThread = nRange / nThreads;
 
     int nPrevThreadEnd = nCount - 1;
@@ -4024,12 +4024,12 @@ UniValue searchdzwgr(const UniValue& params, bool fHelp)
         int nStart = nPrevThreadEnd + 1;;
         int nEnd = nStart + nRangePerThread;
         nPrevThreadEnd = nEnd;
-        dzwgrThreads->create_thread(boost::bind(&SearchThread, zwallet, nStart, nEnd));
+        dzbetfThreads->create_thread(boost::bind(&SearchThread, zwallet, nStart, nEnd));
     }
 
-    dzwgrThreads->join_all();
+    dzbetfThreads->join_all();
 
-    zwallet->RemoveMintsFromPool(pwalletMain->zwgrTracker->GetSerialHashes());
+    zwallet->RemoveMintsFromPool(pwalletMain->zbetfTracker->GetSerialHashes());
     zwallet->SyncWithChain(false);
 
     //todo: better response

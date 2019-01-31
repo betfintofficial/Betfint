@@ -261,11 +261,11 @@ extern UniValue importzerocoins(const UniValue& params, bool fHelp);
 extern UniValue exportzerocoins(const UniValue& params, bool fHelp);
 extern UniValue reconsiderzerocoins(const UniValue& params, bool fHelp);
 extern UniValue getspentzerocoinamount(const UniValue& params, bool fHelp);
-extern UniValue setzwgrseed(const UniValue& params, bool fHelp);
-extern UniValue getzwgrseed(const UniValue& params, bool fHelp);
+extern UniValue setzbetfseed(const UniValue& params, bool fHelp);
+extern UniValue getzbetfseed(const UniValue& params, bool fHelp);
 extern UniValue generatemintlist(const UniValue& params, bool fHelp);
-extern UniValue searchdzwgr(const UniValue& params, bool fHelp);
-extern UniValue dzwgrstate(const UniValue& params, bool fHelp);
+extern UniValue searchdzbetf(const UniValue& params, bool fHelp);
+extern UniValue dzbetfstate(const UniValue& params, bool fHelp);
 
 extern UniValue listevents(const UniValue& params, bool fHelp);
 extern UniValue placebet(const UniValue& params, bool fHelp);

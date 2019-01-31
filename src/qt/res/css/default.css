@@ -882,12 +882,12 @@ WalletFrame {
     border:0;
     }
     
-    /* About Wagerr Dialog */
-    QDialog#AboutDialog QLabel#label, QDialog#AboutDialog QLabel#copyrightLabel, QDialog#AboutDialog QLabel#label_2 { /* About Wagerr Contents */
+    /* About Betfint Dialog */
+    QDialog#AboutDialog QLabel#label, QDialog#AboutDialog QLabel#copyrightLabel, QDialog#AboutDialog QLabel#label_2 { /* About Betfint Contents */
     margin-left:10px;
     }
     
-    QDialog#AboutDialog QLabel#label_2 { /* Margin for About Wagerr text */
+    QDialog#AboutDialog QLabel#label_2 { /* Margin for About Betfint text */
     margin-right:10px;
     }
     
@@ -918,7 +918,7 @@ WalletFrame {
     background-repeat: no-repeat;
     }
     
-    QWidget .QFrame#frame_Header { /* Header with Page-Title and Wagerr-image */
+    QWidget .QFrame#frame_Header { /* Header with Page-Title and Betfint-image */
     min-width:400px;
     background-color:#ffffff;
     }
@@ -1557,7 +1557,7 @@ WalletFrame {
     
     }
     
-    QDialog#ZWgrControlDialog .QTreeWidget#treeWidget { /* zBETF Control Widget Container */
+    QDialog#ZBetfControlDialog .QTreeWidget#treeWidget { /* zBETF Control Widget Container */
     outline:0;
     background-color:#ffffff;
     border:1px solid #454545;

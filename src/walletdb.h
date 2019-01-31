@@ -15,7 +15,7 @@
 #include "primitives/zerocoin.h"
 #include "libzerocoin/Accumulator.h"
 #include "libzerocoin/Denominations.h"
-#include "zwgrtracker.h"
+#include "zbetftracker.h"
 
 #include <list>
 #include <stdint.h>

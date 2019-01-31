@@ -10,7 +10,7 @@
 #include "stakeinput.h"
 #include "wallet.h"
 
-CZWgrStake::CZWgrStake(const libzerocoin::CoinSpend& spend)
+CZBetfStake::CZBetfStake(const libzerocoin::CoinSpend& spend)
 {
     this->nChecksum = spend.getAccumulatorChecksum();
     this->denom = spend.getDenomination();
@@ -20,7 +20,7 @@ CZWgrStake::CZWgrStake(const libzerocoin::CoinSpend& spend)
     fMint = false;
 }
 
-int CZWgrStake::GetChecksumHeightFromMint()
+int CZBetfStake::GetChecksumHeightFromMint()
 {
     int nHeightChecksum = chainActive.Height() - Params().Zerocoin_RequiredStakeDepth();
 
@@ -31,12 +31,12 @@ int CZWgrStake::GetChecksumHeightFromMint()
     return GetChecksumHeight(nChecksum, denom);
 }
 
-int CZWgrStake::GetChecksumHeightFromSpend()
+int CZBetfStake::GetChecksumHeightFromSpend()
 {
     return GetChecksumHeight(nChecksum, denom);
 }
 
-uint32_t CZWgrStake::GetChecksum()
+uint32_t CZBetfStake::GetChecksum()
 {
     return nChecksum;
 }
@@ -44,7 +44,7 @@ uint32_t CZWgrStake::GetChecksum()
 // The zBETF block index is the first appearance of the accumulator checksum that was used in the spend
 // note that this also means when staking that this checksum should be from a block that is beyond 60 minutes old and
 // 100 blocks deep.
-CBlockIndex* CZWgrStake::GetIndexFrom()
+CBlockIndex* CZBetfStake::GetIndexFrom()
 {
     if (pindexFrom)
         return pindexFrom;
@@ -66,13 +66,13 @@ CBlockIndex* CZWgrStake::GetIndexFrom()
     return pindexFrom;
 }
 
-CAmount CZWgrStake::GetValue()
+CAmount CZBetfStake::GetValue()
 {
     return denom * COIN;
 }
 
 //Use the first accumulator checkpoint that occurs 60 minutes after the block being staked from
-bool CZWgrStake::GetModifier(uint64_t& nStakeModifier)
+bool CZBetfStake::GetModifier(uint64_t& nStakeModifier)
 {
     CBlockIndex* pindex = GetIndexFrom();
     if (!pindex)
@@ -92,7 +92,7 @@ bool CZWgrStake::GetModifier(uint64_t& nStakeModifier)
     }
 }
 
-CDataStream CZWgrStake::GetUniqueness()
+CDataStream CZBetfStake::GetUniqueness()
 {
     //The unique identifier for a zBETF is a hash of the serial
     CDataStream ss(SER_GETHASH, 0);
@@ -100,7 +100,7 @@ CDataStream CZWgrStake::GetUniqueness()
     return ss;
 }
 
-bool CZWgrStake::CreateTxIn(CWallet* pwallet, CTxIn& txIn, uint256 hashTxOut)
+bool CZBetfStake::CreateTxIn(CWallet* pwallet, CTxIn& txIn, uint256 hashTxOut)
 {
     CBlockIndex* pindexCheckpoint = GetIndexFrom();
     if (!pindexCheckpoint)
@@ -121,7 +121,7 @@ bool CZWgrStake::CreateTxIn(CWallet* pwallet, CTxIn& txIn, uint256 hashTxOut)
     return true;
 }
 
-bool CZWgrStake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nTotal)
+bool CZBetfStake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nTotal)
 {
     //Create an output returning the zBETF that was staked
     CTxOut outReward;
@@ -149,48 +149,48 @@ bool CZWgrStake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nT
     return true;
 }
 
-bool CZWgrStake::GetTxFrom(CTransaction& tx)
+bool CZBetfStake::GetTxFrom(CTransaction& tx)
 {
     return false;
 }
 
-bool CZWgrStake::MarkSpent(CWallet *pwallet, const uint256& txid)
+bool CZBetfStake::MarkSpent(CWallet *pwallet, const uint256& txid)
 {
-    CzBETFTracker* zwgrTracker = pwallet->zwgrTracker.get();
+    CzBETFTracker* zbetfTracker = pwallet->zbetfTracker.get();
     CMintMeta meta;
-    if (!zwgrTracker->GetMetaFromStakeHash(hashSerial, meta))
+    if (!zbetfTracker->GetMetaFromStakeHash(hashSerial, meta))
         return error("%s: tracker does not have serialhash", __func__);
 
-    zwgrTracker->SetPubcoinUsed(meta.hashPubcoin, txid);
+    zbetfTracker->SetPubcoinUsed(meta.hashPubcoin, txid);
     return true;
 }
 
 //!BETF Stake
-bool CWgrStake::SetInput(CTransaction txPrev, unsigned int n)
+bool CBetfStake::SetInput(CTransaction txPrev, unsigned int n)
 {
     this->txFrom = txPrev;
     this->nPosition = n;
     return true;
 }
 
-bool CWgrStake::GetTxFrom(CTransaction& tx)
+bool CBetfStake::GetTxFrom(CTransaction& tx)
 {
     tx = txFrom;
     return true;
 }
 
-bool CWgrStake::CreateTxIn(CWallet* pwallet, CTxIn& txIn, uint256 hashTxOut)
+bool CBetfStake::CreateTxIn(CWallet* pwallet, CTxIn& txIn, uint256 hashTxOut)
 {
     txIn = CTxIn(txFrom.GetHash(), nPosition);
     return true;
 }
 
-CAmount CWgrStake::GetValue()
+CAmount CBetfStake::GetValue()
 {
     return txFrom.vout[nPosition].nValue;
 }
 
-bool CWgrStake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nTotal)
+bool CBetfStake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nTotal)
 {
     vector<valtype> vSolutions;
     txnouttype whichType;
@@ -225,7 +225,7 @@ bool CWgrStake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nTo
     return true;
 }
 
-bool CWgrStake::GetModifier(uint64_t& nStakeModifier)
+bool CBetfStake::GetModifier(uint64_t& nStakeModifier)
 {
     int nStakeModifierHeight = 0;
     int64_t nStakeModifierTime = 0;
@@ -239,7 +239,7 @@ bool CWgrStake::GetModifier(uint64_t& nStakeModifier)
     return true;
 }
 
-CDataStream CWgrStake::GetUniqueness()
+CDataStream CBetfStake::GetUniqueness()
 {
     //The unique identifier for a BETF stake is the outpoint
     CDataStream ss(SER_NETWORK, 0);
@@ -248,7 +248,7 @@ CDataStream CWgrStake::GetUniqueness()
 }
 
 //The block that the UTXO was added to the chain
-CBlockIndex* CWgrStake::GetIndexFrom()
+CBlockIndex* CBetfStake::GetIndexFrom()
 {
     uint256 hashBlock = 0;
     CTransaction tx;

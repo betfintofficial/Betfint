@@ -212,7 +212,7 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
 
     // BETF Balance
     CAmount nTotalBalance = balance + unconfirmedBalance;
-    CAmount wgrAvailableBalance = balance - immatureBalance - nLockedBalance;   
+    CAmount betfAvailableBalance = balance - immatureBalance - nLockedBalance;   
     CAmount nUnlockedBalance = nTotalBalance - nLockedBalance;
 
     // BETF Watch-Only Balance
@@ -227,11 +227,11 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     QString sPercentage = "";
     getPercentage(nUnlockedBalance, zerocoinBalance, sPercentage, szPercentage);
     // Combined balances
-    CAmount availableTotalBalance = wgrAvailableBalance + matureZerocoinBalance;
+    CAmount availableTotalBalance = betfAvailableBalance + matureZerocoinBalance;
     CAmount sumTotalBalance = nTotalBalance + zerocoinBalance;
 
     // BETF labels
-    ui->labelBalance->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, wgrAvailableBalance, false, BitcoinUnits::separatorAlways));
+    ui->labelBalance->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, betfAvailableBalance, false, BitcoinUnits::separatorAlways));
     ui->labelUnconfirmed->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, unconfirmedBalance, false, BitcoinUnits::separatorAlways));
     ui->labelImmature->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, immatureBalance, false, BitcoinUnits::separatorAlways));
     ui->labelLockedBalance->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, nLockedBalance, false, BitcoinUnits::separatorAlways));
@@ -281,7 +281,7 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     bool showWatchOnly = nTotalWatchBalance != 0;
 
     // BETF Available
-    bool showBETFAvailable = settingShowAllBalances || wgrAvailableBalance != nTotalBalance;
+    bool showBETFAvailable = settingShowAllBalances || betfAvailableBalance != nTotalBalance;
     bool showWatchOnlyBETFAvailable = showBETFAvailable || nAvailableWatchBalance != nTotalWatchBalance;
     ui->labelBalanceText->setVisible(showBETFAvailable || showWatchOnlyBETFAvailable);
     ui->labelBalance->setVisible(showBETFAvailable || showWatchOnlyBETFAvailable);
